@@ -1,0 +1,58 @@
+<div class="container">
+  <ng-template [ngIf]="messageBox === true">
+    <mat-card class="card">{{successMsg}}</mat-card>
+  </ng-template>
+  <ng-template [ngIf]="errorBox === true">
+    <mat-card class="err_card">{{errorMsg}}</mat-card>
+  </ng-template>
+  <div class="sub_container">
+      <h3>Please enter the OTP to verify your account</h3>
+      <h5>A code has been sent to your Email Id</h5>
+
+      <ng-template [ngIf]="spinner === true">
+        <div class="spinner">
+            <div>
+                <mat-spinner></mat-spinner></div>
+            </div>
+      </ng-template>
+
+
+      <form (ngSubmit)="onSubmit(txt1.value,txt2.value,txt3.value,txt4.value,txt5.value,txt6.value)">
+        <mat-form-field class="full-width" appearance="fill">
+        <input  matinput class="input-otp" type="text" #txt1 maxlength="1" (keyup)="move($event, '', txt1, txt2)">
+      </mat-form-field>
+
+      <mat-form-field class="full-width" appearance="fill">
+        <input matinput class="input-otp" type="text" #txt2 maxlength="1" (keyup)="move($event, txt1, txt2, txt3)">
+      </mat-form-field>
+
+      <mat-form-field class="full-width" appearance="fill">
+        <input matinput class="input-otp" type="text" #txt3 maxlength="1" (keyup)="move($event, txt2, txt3, txt4)">
+      </mat-form-field>
+
+      <mat-form-field class="full-width" appearance="fill">
+        <input matinput class="input-otp" type="text" #txt4 maxlength="1" (keyup)="move($event, txt3, txt4, txt5)">
+      </mat-form-field>
+
+      <mat-form-field class="full-width" appearance="fill">
+        <input matinput class="input-otp" type="text" #txt5 maxlength="1" (keyup)="move($event, txt4, txt5, txt6)">
+      </mat-form-field>
+
+      <mat-form-field class="full-width" appearance="fill">
+        <input matinput class="input-otp" type="text" #txt6 maxlength="1" (keyup)="move($event, txt5, txt6, '')">
+      </mat-form-field>
+
+        <br><br>
+        <div class="buttonclick">
+          <button type="submit" [disabled]="spinner == true" class="button" mat-raised-button >
+            Submit
+          </button>
+          &nbsp;&nbsp;
+          <button class="button" [disabled]="spinner == true" mat-raised-button (click)="resendOTP(txt1,txt2,txt3,txt4,txt5,txt6)">
+            Resend OTP
+          </button>
+        </div>
+      </form>
+  </div>
+</div>
+

@@ -1,0 +1,145 @@
+<div class="container" >
+
+  <ng-template [ngIf]="messageBox === true">
+    <mat-card class="card">{{responseData}}</mat-card>
+  </ng-template>
+
+  <ng-template [ngIf]="errorBox === true">
+    <mat-card class="err_card">{{errorMsg}}</mat-card>
+  </ng-template>
+
+  <ng-template [ngIf]="spinner === true">
+    <div class="spinner">
+        <div>
+            <mat-spinner></mat-spinner></div>
+        </div>
+  </ng-template>
+
+  <div class="sub_container">
+
+      <div class="form_container">
+        <h4 class="heading_lebel">Registration Form</h4>
+          <form (ngSubmit)="onSubmit()" name="registerform" [formGroup]="registerform">
+              <img class="" [src] ="imagePath"/>
+
+                  <div class="input_box">
+                    <mat-form-field class="full-width" appearance="fill" hideRequiredMarker="">
+                      <mat-label>UserName</mat-label>
+
+                      <input matInput
+                      formControlName="userName"
+                      (blur)="checkUniqueUserName()"
+                      >
+                      <mat-hint>
+                        UserName Is Required
+                      </mat-hint>
+
+                      <mat-error *ngIf="registerform?.get('userName')?.value && registerform?.get('userName')?.invalid">
+                        Please enter a valid Username
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <br>
+
+                  <div class="input_box">
+                    <mat-form-field appearance="fill" hideRequiredMarker="">
+                        <mat-label>FirstName</mat-label>
+
+                      <input matInput
+                      formControlName="firstName"
+                      >
+
+                      <mat-hint>
+                        FirstName is Required
+                      </mat-hint>
+
+                      <mat-error *ngIf="registerform?.get('firstName')?.value && registerform?.get('firstName')?.invalid">
+                        FirstName is not valid it should contain only characters.
+                      </mat-error>
+                    </mat-form-field>
+
+                  </div>
+                  <br>
+                  <div class="input_box">
+                    <mat-form-field appearance="fill" hideRequiredMarker="">
+                        <mat-label>LastName</mat-label>
+
+                      <input matInput
+                      formControlName="lastName"
+                      >
+
+                      <mat-hint>
+                        LastName is Required
+                      </mat-hint>
+
+                      <mat-error *ngIf="registerform?.get('lastName')?.value && registerform?.get('lastName')?.invalid">
+                        LastName is not valid it should contain only characters.
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <br>
+                  <div class="input_box">
+                    <mat-form-field class="full-width" appearance="fill" hideRequiredMarker="">
+                        <mat-label>Email</mat-label>
+
+                        <input matInput
+                        (blur)="checkUniqueEmail()"
+                        formControlName="email"
+                        >
+
+                        <mat-hint>
+                          Email is Required
+                        </mat-hint>
+
+                        <mat-error *ngIf="registerform?.get('email')?.value && registerform?.get('email')?.invalid">
+                          Email is not valid.
+                        </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <br>
+                  <div class="box">
+                    <div class="input_box">
+                      <mat-form-field class="first_box_input" appearance="fill" hideRequiredMarker="">
+                        <mat-label>Password</mat-label>
+
+                        <input matInput
+                        type="password"
+                        formControlName="password"
+                        >
+
+                        <mat-hint>
+                          Password is Required
+                        </mat-hint>
+
+                        <mat-error *ngIf="registerform?.get('password')?.value && registerform?.get('password')?.invalid">
+                          Password must contains 1 upper case letter, 1 lower case letter, 1 number & 1 special character .
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div class="input_box">
+                        <mat-form-field class="last_box_input" appearance="fill" hideRequiredMarker="">
+                          <mat-label>Confirm Password</mat-label>
+
+                          <input matInput
+                          type="password"
+                          formControlName="confirmPassword">
+
+                          <mat-hint>
+                            Confirm Password is Required
+                          </mat-hint>
+
+                          <mat-error *ngIf="f['confirmPassword'].getError('MustMatch')!=null">
+                            <mat-error *ngIf="registerform?.get('confirmPassword')?.value && registerform?.get('confirmPassword')?.invalid">
+                              Password and confirm didnt match.
+                            </mat-error>
+                          </mat-error>
+                        </mat-form-field>
+                    </div>
+                  </div>
+                  <br> <br> <br>
+              <button id="button" mat-raised-button class="button" [disabled]="registerform.invalid || emailCheck == 'User With this Email Already Exists' || userNameCheck == 'User With this UserName Already Exists'|| spinner == true">Submit</button>
+          </form>
+          <br>
+      </div>
+  </div>
+
